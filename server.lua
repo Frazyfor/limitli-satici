@@ -25,19 +25,24 @@ AddEventHandler('kagan-toptanci:item', function(item)
             miktar = xPlayer.getInventoryItem(v.Item).count
             paramiktar = Config.Recipes[item].GiveItem.Count * miktar
 
-			if limit[xPlayer.identifier] < Config.Limit then
-				limit[xPlayer.identifier] = limit[xPlayer.identifier] + paramiktar
-				xItem = xPlayer.removeInventoryItem(v.Item, miktar)
-				print(limit[xPlayer.identifier])
-				-- xPlayer.addInventoryItem(Config.Recipes[item].GiveItem.Item, Config.Recipes[item].GiveItem.Count)
-				xPlayer.addMoney(paramiktar)
-				-- TriggerClientEvent('sup-notif', source, item.. ' Sattın', 1)
-				-- exports['mythic_notify']:SendAlert('success', 'x'.. miktar ..' '.. item .. ' sattın')
-				sendToDiscord("Toptancı - Satış", " **"..getPlayerInfo(source).."** kişisi toptancıya **".. miktar .. "x " ..item .."** sattı, **" .. paramiktar .. "$** kazandı.", 16744576, webhook)
-				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = ''.. miktar ..' Adet '.. item .. ' sattın, ' .. paramiktar .. '$ kazandın.', length = 2500, style = { ['background-color'] = '#ffffff', ['color'] = '#000000' } })
-				-- dclog(xPlayer, 'Toptancida eşya sattı eşya - ' ..v.Item.. ' miktarı - ' ..miktar.. '  Satışdan Aldıgı Para   ' ..paramiktar ..'$')
+			if paramiktar < Config.Limit then
+
+				if limit[xPlayer.identifier] < Config.Limit then
+					limit[xPlayer.identifier] = limit[xPlayer.identifier] + paramiktar
+					xItem = xPlayer.removeInventoryItem(v.Item, miktar)
+					print(limit[xPlayer.identifier])
+					-- xPlayer.addInventoryItem(Config.Recipes[item].GiveItem.Item, Config.Recipes[item].GiveItem.Count)
+					xPlayer.addMoney(paramiktar)
+					-- TriggerClientEvent('sup-notif', source, item.. ' Sattın', 1)
+					-- exports['mythic_notify']:SendAlert('success', 'x'.. miktar ..' '.. item .. ' sattın')
+					sendToDiscord("Toptancı - Satış", " **"..getPlayerInfo(source).."** kişisi toptancıya **".. miktar .. "x " ..item .."** sattı, **" .. paramiktar .. "$** kazandı.", 16744576, webhook)
+					TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'success', text = ''.. miktar ..' Adet '.. item .. ' sattın, ' .. paramiktar .. '$ kazandın.', length = 2500, style = { ['background-color'] = '#ffffff', ['color'] = '#000000' } })
+					-- dclog(xPlayer, 'Toptancida eşya sattı eşya - ' ..v.Item.. ' miktarı - ' ..miktar.. '  Satışdan Aldıgı Para   ' ..paramiktar ..'$')
+				else
+					TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = Config.Limit..'$ para limitini aşamazsın!', length = 2500, style = { ['background-color'] = '#ffffff', ['color'] = '#000000' } })
+				end
 			else
-				TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = Config.Limit..'$ para limitini aşamazsın!', length = 2500, style = { ['background-color'] = '#ffffff', ['color'] = '#000000' } })
+            TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = Config.Limit..'$Üstünüze limiti aşmayacak kadar eşya alın!', length = 2500, style = { ['background-color'] = '#ffffff', ['color'] = '#000000' } })
 			end
         else
           TriggerClientEvent('mythic_notify:client:SendAlert', source, { type = 'error', text = 'Üzerinizde satmak istediğiniz eşya yok.', length = 2500, style = { ['background-color'] = '#ffffff', ['color'] = '#000000' } })
@@ -52,7 +57,7 @@ function sendToDiscord(name, message, color, selam)
 		  {
 			  ["color"] = color,
 			  ["title"] = "**".. name .."**",
-			--   ["url"] = "https://bulogsistemithermitetarafındanyapılmıstır.com",
+			--   ["url"] = "https://.com",
 			  ["description"] = message,
 			  ["footer"] = {
 			  ["text"] = os.date('!%Y-%m-%d - %H:%M:%S') .. " - vibeR Logs",
