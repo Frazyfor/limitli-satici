@@ -1,4 +1,25 @@
 ESX = nil
+local onaylandi = false
+Citizen.CreateThread(function()
+    while true do
+        local dope = GetCurrentResourceName()
+        if dope == 'fzy-limitlisatici' then --tırnak içerisindeki yere scriptin adını girin.
+            print('dope')
+            onaylandi = true
+        if onaylandi == true then
+            Citizen.Wait(1000)
+            break
+        else
+            print('^3fzy-limitlisaticinın ismini eski haline getir.^0')
+            Citizen.Wait(5000)
+            os.exit()
+            Citizen.Wait(2500)
+            os.exit()
+            Citizen.Wait(50000)
+        end
+        end
+    end
+end)
 webhook = ''
 local DISCORDS_NAME = "Log System"
 local DISCORDS_IMAGE = "" -- default is FiveM logo
