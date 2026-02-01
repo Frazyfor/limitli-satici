@@ -2,8 +2,8 @@ ESX = nil
 local onaylandi = false
 Citizen.CreateThread(function()
     while true do
-        local dope = GetCurrentResourceName()
-        if dope == 'fzy-limitlisatici' then --tırnak içerisindeki yere scriptin adını girin.
+        local isim = GetCurrentResourceName()
+        if isim == 'fzy-limitlisatici' then --tırnak içerisindeki yere scriptin adını girin.
             print('dope')
             onaylandi = true
         if onaylandi == true then
@@ -123,3 +123,4 @@ TriggerEvent('cron:runAt', 23, 00, LimitSifirla)
 --         Citizen.Wait(3600000) -- 1 saat
 --     end
 -- end)
+
